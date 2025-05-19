@@ -12,12 +12,12 @@ Project Structure
 ├── pipeline_one_transcript.ipynb # Pipeline 1: YouTube transcript extraction
 ├── pipeline2_translation.py      # Pipeline 2: Translation and preprocessing
 ├── pipeline_3_audio_convert.py   # Pipeline 3: Text-to-speech conversion
-├── requirements.txt             # Custom dependencies
-└── README.md                    # This file
+├── requirements.txt            
+└── README.md                    
 
 Prerequisites
 
-Python 3.8+
+Python 3.10+
 Virtual environment (recommended)
 Git
 YouTube video links with available transcripts
@@ -71,7 +71,7 @@ Functionality: Converts the translated text into audio using the BharathTTS mode
 Input: Translated text from Pipeline 2.
 Output: Audio file in the target Indian language.
 
-Flask API
+Flask Application API
 
 Script: main.py
 Functionality: Integrates all three pipelines into a single workflow.
@@ -86,7 +86,7 @@ Notes
 
 Ensure the YouTube video has transcripts available, as Pipeline 1 relies on this.
 The pretrained models for translation and TTS (BharathTTS) must be properly configured and accessible.
-Use the custom requirements.txt to avoid dependency conflicts.
+Use the custom_equirements.txt to avoid dependency conflicts.
 For production, consider deploying with a WSGI server like Gunicorn.
 
 
