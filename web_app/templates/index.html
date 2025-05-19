@@ -1,0 +1,99 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .text-group {
+            margin-top: 20px;
+        }
+        .row {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+        h2 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Text</h1>
+    <form method="POST">
+        <input type="text" name="user_input" placeholder="Type something..." required>
+        <button type="submit">Send</button>
+    </form>
+
+    <div class="text-group">
+        <h2>Text from Backend:</h2>
+        <textarea id="transcriptTextArea" readonly>{{ text }}</textarea>
+        <button id="pipelineTwoBtn">Pipeline Two</button>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <h2>Translate 1</h2>
+            <textarea id="title1Box" readonly>Content for box 1</textarea>
+        </div>
+        <div class="column">
+            <h2>Translate 2</h2>
+            <textarea readonly>Content for box 2</textarea>
+        </div>
+        <div class="column">
+            <h2>Translate 3</h2>
+            <textarea readonly>Content for box 3</textarea>
+        </div>
+    </div>
+
+    <script>
+    
+        const transcript = {{ text | tojson | safe }};
+        const lang = {{ trigger_lang | tojson | safe }};
+
+    
+        document.getElementById('pipelineTwoBtn').addEventListener('click', function (e) {
+            e.preventDefault(); 
+
+            fetch('/translate_api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    transcript_text: transcript,
+                    trigger_lang: lang
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Pipeline Two Response:', data);
+
+                const title1Box = document.getElementById('title1Box');
+                title1Box.value = data.translation || 'No translation received';
+
+                alert('Pipeline Two triggered successfully!');
+            })
+            .catch(error => {
+                console.error('Error calling translate_api:', error);
+                alert('Error while triggering Pipeline Two');
+            });
+        });
+    </script>
+</body>
+</html>

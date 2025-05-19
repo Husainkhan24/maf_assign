@@ -1,0 +1,470 @@
+JEFF POSNICK Hey everybody 
+Welcome to this week's show of YouTube Developers Live 
+I'm Jeff Posnick coming to you from New York City 
+I'm a member of the Developer Relations team 
+And this week I'm really excited to talk to you about 
+different ways of customizing the YouTube-embedded player 
+Before I get started though I want a couple of ground rules 
+to just talk about what we're going to be covering in 
+today's show 
+There are a lot of different embedded players and there's 
+lots of ways to customize them 
+But for this particular show we're going to be focusing on 
+customizing be iframe-embedded player which is our current 
+recommended way of embedding videos on web pages 
+And we're going to specifically focus on the 
+options that are most relevant for desktop web browsers 
+A lot of these customization options we'll talk about do 
+have some effect with mobile browser playback but not all 
+of them do 
+And we're going to just focus today on how these options 
+affect desktop playback 
+Another thing that we're not going to be covering today is 
+using the JavaScript API for controlling playback 
+This is obviously a very interesting topic and a very 
+important topic it's just a little bit outside the scope 
+of what we wanted to talk about 
+So we're not going to be covering any of the methods 
+that you could use in JavaScript to start playback 
+or control playback or receive events when playback 
+changes happen in the player 
+What we are going to be covering is things that are 
+covered in the documentation on the specific page so if 
+you pull that up we'll share that with you 
+And as I'm going through this demo a lot of what I'm going 
+to be covering refers to specific web pages 
+When we go back and post this video on YouTube I'll have 
+annotations linking to all the web pages so that you could 
+go there and check them out yourself 
+So this is our main jumping off point for talking about 
+the customization that you could do to the 
+YouTube-embedded iframe player 
+And you could get here from our main DevelopersGoogl 
+e.com/YouTubedocumentation. 
+And everything in this parameter section in the docks 
+is fair game for what we're going to talk about now 
+One other thing before I actually get into explaining 
+these parameters is explain the two different types of 
+ways that you can load the iframe-embedded player onto 
+your web page. 
+And we're kind of agnostic as to the way in which you load 
+it these parameters are going to behave the same way 
+regardless. 
+But I just wanted to point out that there are two different 
+ways of doing it 
+The first way is using the iframes kind of like YouTube 
+player, YT. 
+Player constructor 
+And this is a more programmatic way of loading 
+the iframe player onto your web page 
+So I have this jsFiddle right here that demonstrates what 
+that will look like 
+It basically involves loading in this JavaScript API and 
+calling the YT 
+Player constructor and passing in the ID of a div 
+that's on your page 
+And you'll see here that there is this playerVars section 
+that you could pass in to the YT 
+Player constructors 
+So this is where you get to specify all the options that 
+we're going to be covering today if you're using the YT 
+PLayer constructor 
+And just quickly jumping over here this is where I stole 
+that code from in our Getting Started guide 
+for the iframe API 
+We talk about how you could actually get that code 
+So feel free to borrow it there or from that jsFiddle 
+The second way that you load the iframe player onto your 
+page is just with a simple iframe tag that you could add 
+to any web page 
+And this has the same sort of parameters that the YT 
+Player constructor is kind under the hood 
+They really end up creating the same thing 
+Just that the YT 
+Player constructor is a programmatic way of creating 
+this tag using JavaScript 
+This is if you're just writing out initiable 
+template or even if you're not a JavaScript programmer at 
+all and just want to include some HTML on your page you 
+could use this tag 
+And the same parameters we are going to be talking about can 
+go at the very end of the URL that you use as a source of 
+the iframe tag 
+So over here we have autoplay equals 0 and 
+controls equals 0. 
+And that corresponds to what we're seeing over here for the 
+playerVars 
+And the actual documentation for using that iframe tag is 
+found over here 
+If you look in the docs over here we give some examples 
+So that's the ground rules for how you actually will use 
+these parameters that we are going to be 
+describing in your own code 
+So I just wanted to run through pretty much from the 
+top all these parameters here 
+We do have really nice explanations what they mean in 
+the documentation 
+So it's going to be a little bit repetitive in some cases 
+But I did want to highlight some specific ones that are 
+the most useful 
+So autohide comes in
+handy quite a bit. 
+This is something that controls the behavior of the 
+controls more or less that are on the bottom of the 
+YouTube Player 
+It's not necessarily the initial state of the controls 
+but it's more like what happens the controls once 
+playback starts 
+And I'm going to demonstrate the ways of setting those 
+different values by going to this page over here which is 
+our YouTube player demo 
+So this is another really great resource 
+And it's an alternative to writing this code over here or 
+writing this in jsFiddle 
+It's just a way to play around with these parameters in a 
+live setting. 
+And we can think of it like our API explorer if you've 
+ever used that for our data APIs 
+This is the equivalent for our player APIs 
+So what it lets you do is go over here on the right and 
+start choosing different values for the parameters 
+And I'm not going to do this for every single parameter 
+that we didn't talk about but just to show you how you could 
+experiment in real time without having 
+to write any code 
+Let me just try setting autohide
+to 0 over here. 
+I'm going to click Update Player 
+And once I set it Begin Playback 
+This is a very old video 
+Actually part of what I plan on doing is replacing the 
+default video that we use in this demo with this video so 
+we'll have a very meta experience if you happen to 
+be watching this while on the demo page trying out these 
+parameters. 
+So the main thing to keep in mind though is that the 
+controls at the bottom over here did not 
+disappear during playback 
+And if I were to go over here and change the autohide to 1 
+Update Player-- 
+it says loading in the player with the parameters-- 
+you'll see that when I mouse over the controls are there 
+When I move the mouse away the controls disappear 
+So for experiences where you want maybe a more of lean-back 
+type of situation where people aren't going to be 
+interacting with the controls or you don't want the controls 
+to overlay the video playback it's a very useful parameter 
+Autoplay is next on the list alphabetically 
+Somewhat self-explanatory if you add in the autoplay 
+parameter then the video will start playing back as soon as 
+the iframe embed is loaded on the page 
+I'll give a quick demo of that over here 
+And this time instead of using the player demo page 
+I'm going to use that jsFiddle that we have set up 
+And I'm going to just change the autoplay value to 1 
+I'm going to click Run 
+And you could see here's the embed 
+It started playing as soon as the page loads 
+So there are certain scenarios where that's useful certain 
+scenarios where it's not 
+You have to use your judgment as to whether autoplaying is 
+the right thing to do 
+ccloadpolicy is something that controls whether closed 
+captions or subtitles are displayed by default 
+And the default behavior-- we don't set anything for 
+cc_load_policy-- 
+is that the user's preferences basic on YouTube 
+There is a way of going in and saying whether you want closed 
+captions or you don't want closed captions 
+That's normally what takes effect 
+If you have a specific video and you know that you always 
+want the closed captions to be shown you could set 
+cc_load_policy to 1. 
+Color's a bit interesting 
+It's not something that I see widely used and necessarily 
+but there are some cases where you might want a little bit of 
+flair let's say in your player 
+And you don't want the default behavior 
+So I'm going to go to the player demo page really 
+quickly and just show you what it does 
+You could set color to white instead of red and you update 
+the player 
+Controls should look slightly different depending upon 
+whether they're red or white 
+So it just basically changes the branding a little bit on 
+the player 
+Not necessarily the most useful thing in the world but 
+it does give you a little
+bit more control. 
+Speaking of control next item alphabetically is controls 
+And this is actually quite useful 
+There are cases where you can actually see a lot of 
+performance benefits by changing this value from the 
+defaults to a specific option which is 2 
+We have a note in the documentation explaining more 
+about what this does 
+And if you read the note it says that controls2 can give 
+you a performance improvement over the default behavior 
+And the reason why that is is controls2 has a way of 
+loading the iframe embedded player that does not 
+initialize the underlying Flash player by default 
+It doesn't initialize it until you actually click on the 
+video thumbnail to start the playback 
+This obviously only applies to playbacks that do involve the 
+Flash player 
+The iframe player might decide that HTML5 video is going to 
+be used instead in which case this isn't quite as important 
+But in situations where Flash playback is being used you 
+could really see a significant performance benefit from 
+setting controls=2. 
+And that might be the default that we use at some point in 
+the future as mentioned here as soon as some UI issues are 
+worked out 
+And I'm going to give you an example of how you could see 
+that performance benefit 
+It mainly comes across when you have-- 
+let's say I don't want to say a specific number but if you 
+have multiple iframe embeds on the same page 
+So this one over here has-- 
+I think there might be 50 from the Google Developers channel 
+So the first thing that we're going to look at is behavior 
+pretty much by default where there's controls1 or if you 
+leave out controls. 
+It's the default 
+And it can take some time for these underlying Flash players 
+to all initialize and can add some latency to the point 
+where things look like they're ready to be 
+interacted with on the page 
+So not necessarily the best user experience 
+If you take the same thing and you change it to controls 
+equals 2 explicitly then you should see a much better 
+performance 
+It's quite remarkable actually 
+So what's going on 
+You can see now again it's just loading in these 
+thumbnails 
+It's not initializing the Flash player for each video 
+And you could have-- 
+I don't want to say you should put thousands of embeds on the 
+same page-- but if you do happen to have a large number 
+of embeds on the page you will see a difference 
+So very important to keep that in mind 
+A few other parameters that are not 
+necessarily as exciting 
+There's keyboard support for the ActionScript player 
+I'm not really sure why you would want to turn this off 
+I think it's actually kind of nice to keep it on but we do 
+have the option of turning it off if you want 
+This particular parameter is quite important the 
+enablejsapi. 
+And what it'll let you do is ensure that you are able to 
+talk to the iframe player on the page using 
+the JavaScript API 
+So as I mentioned we're not actually going to be covering 
+anything about the JavaScript API in this particular 
+session but plenty of people have used it 
+And the one case where you really need to be sure you're 
+explicitly setting this is when you're writing the iframe 
+tag directly to the page 
+So kind of like this 
+Because when you're using the YT 
+Player constructor it pretty much will be set automatically 
+for you by default. 
+Just because by virtue of the fact that you're using 
+JavaScript to initialize the player chances are you are 
+going to want to talk to the player with JavaScript 
+So it always gets set for you 
+But that's not the case if you explicitly are writing an 
+iframe tag to a page. 
+So you really do need to make sure there that you have 
+enabled jsapi set to 1. 
+And that's necessary in order to talk to the iframe player 
+The end tag and a little bit further down 
+the alphabet is start 
+So these are two corresponding tags 
+This gives you a really easy way of putting an embed on a 
+page that has its custom end time and a custom start time 
+So if you have a three-minute video and you really want to 
+embed 30 seconds in the middle of the video you could use 
+those two tags to do it 
+As soon as playback reaches the end tag playback will 
+effectively stop 
+So that could be useful 
+fs parameter-- 
+not super useful anymore 
+Basically it lets you control whether there is a full-screen 
+button on the ActionScript 30 player 
+But I don't think it has an effect on the HTML5 player 
+So not really sure why you would want to change that 
+ivloadpolicy is something that controls whether I guess 
+interactive video annotations-- 
+for lack of a better way of describing it-- is shown on 
+your video by default. 
+So there's a couple of different values over here 
+You use 1 or 3 
+Basically setting at 1 will make sure that those 
+annotations are shown 
+Setting it to 3 will make sure that they're 
+not shown by default 
+But at any point the user can change the setting explicitly 
+in the player if they want to show or hide the annotations 
+List is a really interesting one 
+And there is quite a bit to talk about with list 
+So I'm actually going to defer at this point to a whole blog 
+post that we put together to talk about the different types 
+of values that the list parameter and the listType 
+parameter which is an associated 
+parameter, can take. 
+I'll link to this blog post in the video annotations so you 
+can read it in more detail 
+But the long and short of it is that it's a really easy way 
+to take a simple embedded player on your page and use 
+that to display a list of videos without having to hard 
+code the video IDs in advance 
+So you could have one specific player on your page and say 
+play back the most recent videos from a specific YouTube 
+channel or specific playlist or specific search term even 
+So you could say this is an embedded player that will show 
+the latest videos that match the search 
+from the YouTube API 
+Something along those lines 
+It's quite useful. 
+I don't think as many people know about it as they should 
+So hopefully people will watch this and start using it a 
+little bit more. 
+listType goes hand in hand with the list parameter 
+There is a loop parameter 
+And the loop parameter will-- 
+as explained in the documentation-- 
+allow you to automatically restart playback of a video 
+when the playback has ended 
+You have to have a little bit of a hack if you're trying to 
+do this for a single video where you create a playlist 
+that has only one video entry in it 
+So we have a little bit more info there 
+modestbranding is something that's covered in a different 
+blog post which we will also link to from the annotation 
+And it talks about the option down here at the bottom 
+It's not exactly a fully logoless player 
+There still is a YouTube logo involved that shows I think 
+on the pause screen in the upper right-hand corner or in 
+the queued screen 
+But it is one parameter that you could set to tone down the 
+YouTube branding on the player 
+And that's something that you might want to keep in mind if 
+you have a scenario where you want to embed but don't want 
+to make it fully YouTubed 
+The origin parameter is something that can be used 
+when you are using the iframe embed tag and you're going to 
+be interacting with the iframe embed using JavaScript 
+So as mentioned before you might want to explicitly put 
+in enablejsapi. 
+You also might want to put in the origin 
+parameter over here. 
+And you set it equal to the full URL for your web page 
+And this is a security mechanism to make sure that 
+only JavaScript that's run from your host web page is 
+able to talk to the player 
+And if you're using the YT 
+Player constructor it gets set automatically for you 
+So this is another instance where you really only have to 
+worry about this when you're explicitly writing out an 
+iframe tag. 
+And sometimes people run into issues where they explicitly 
+were using the iframe tag and they're trying to talk to it 
+using JavaScript but their code just isn't working 
+One thing to debug in that case is check to see whether 
+you are setting the origin parameter 
+And if you are make sure that it's really set to the full 
+URL of the host name for your site 
+playerapiid-- 
+this isn't really relevant anymore 
+It's more of a way of using the older JavaScript API for 
+identifying your player 
+There's a playlist parameter which is easily confused with 
+the list parameter 
+And it is something that actually takes in a different 
+set of values 
+The playlist parameter takes in a list of video IDs 
+So this does not have to be a real playlist a 
+list that exists on YouTube 
+It doesn't have to be anything that uploads 
+from a specific channel 
+It could just be a list of any video IDs that you want 
+And it's a way of generating a dynamic on-the-fly playlist 
+So some use cases where that might be useful 
+There's the rel parameter 
+And this controls whether or not the end screen of a video 
+will display related videos or not 
+Most folks are familiar with the fact that once you reach 
+the end of a YouTube video you'll see some configuration 
+of thumbnails with suggestions for other videos to play 
+We do have the ability to turn that off if you feel like you 
+do not want that on your embeds 
+showinfo is something that will control what is displayed 
+initially in the queued states 
+There's ways of taking the default behavior and kind of 
+toning it down a bit again where you don't see quite as 
+much before the video starts 
+And you can set it to show info equal 
+0 if you want that 
+showinfo's actually used in another case 
+And that's when you're using the list player 
+And explicitly setting showinfo equal to 1 will make 
+it so that there is a list of queued videos in the playlist 
+in your list player 
+So if we look over here this is a case where 
+showinfo is set to 1 
+This is a playlist player that's loading everything from 
+Google Developers. 
+And you'll see before playback has even started you 
+have this handy thumbnail for all the videos that are queued 
+up in the playlist for the next videos 
+It will let you choose what you want to start with 
+So it is actually quite useful for scenarios where you're 
+doing the list player 
+Start parameter we really covered before hand in hand 
+with the end parameter 
+And the last one is the theme parameter 
+This is something similar to that earlier color parameter 
+that just lets you change the default way that the player 
+looks and gives you some degree of customization in 
+that regard 
+There are now a couple of deprecated parameters 
+I'm not going to cover those 
+They're deprecated for a reason 
+We don't want folks using them anymore 
+I wanted to point out that there are occasionally-- 
+I don't want to say rumors-- but certain parameters out 
+there that people pass around and say hey you can use this 
+player parameter to force HTML5 playback or use this 
+player parameter to force playback in a certain quality 
+level or something along those lines 
+Those are undocumented for a reason 
+We really do not want people to use parameters that aren't 
+explicitly mentioned in the documentation partly because 
+we're not fully committed to supporting them 
+They might sometimes work in some cases and they might 
+stop working at any time in the future 
+So we really don't want people to build things that rely on 
+those parameters 
+And there's also just cases where we want control to be in 
+the hands of the person who's viewing the embed 
+So we want control over the default playback to really lie 
+in the person who's using the web browser and might have 
+Flash enabled 
+Or the default auto quality for the quality level in many 
+cases gives the best playback experience 
+So if you don't see something listed as a supported 
+parameter please don't use it 
+And if you do happen to find some parameters please don't 
+complain if they ever break at some point in the future 
+I guess that's the main takeaway 
+That covers the list of all the supported parameters 
+We had a lot of different web material here 
+And be sure to check out the annotations on the video for 
+links to everything that we covered today 
+Thanks very much for watching 
+And we'll see everybody
+next week. 
+Cheers. 
